@@ -1,0 +1,18 @@
+version: '3'
+
+# Services to start
+services:
+  db:
+    image: percona/percona:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "cmon"
+  cmon:
+    image: ninescontrol/cmon:latest
+    depends_on:
+      - db
+    link:
+      - db:mysql
+    ports:
+      - 9500:9500
+      - 9501:9501
